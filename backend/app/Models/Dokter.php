@@ -19,4 +19,9 @@ class Dokter extends Model
     {
         return $this->belongsTo(Poli::class, 'id_poli');
     }
+
+    public function jadwal()
+    {
+        return $this->hasMany(JadwalPeriksa::class, 'id_dokter');
+    }
 }

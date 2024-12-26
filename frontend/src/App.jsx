@@ -13,6 +13,13 @@ import PageAdminPoli from './page/PageAdminPoli'
 import PageAdminObat from './page/PageAdminObat'
 import PageDasboardPasien from './page/PageDasboardPasien'
 import PageDasboardDokter from './page/PageDasboardDokter'
+import PageJadwalPeriksaDokter from './page/PageJadwalPeriksaDokter';
+import PageDaftarPeriksaDokter from './page/PageDaftarPeriksaDokter';
+import PageDaftarPeriksaPasien from './page/PageDaftarPeriksaPasien';
+import PagedetailPeriksaDokter from './page/PagedetailPeriksaDokter';
+import PageRiwayatPasien from './page/PageRiwayatPasien';
+import PageDetailRiwayatDokter from './page/PageDetailRiwayatDokter';
+import PageDetailRiwayatPasien from './page/PageDetailRiwayatPasien';
 
 function App() {
   return (
@@ -28,8 +35,18 @@ function App() {
                 <Route path='/registeruser' element={<RegisterUser />}/>
                 <Route path='/loginuser' element={<LoginUser />}/>
                 <Route path='/login' element={<Login />}/>
-                <Route exact path="/dasboardpasien/:id" element={<PageDasboardPasien />} />
-                <Route exact path="/dasboarddokter/:id" element={<PageDasboardDokter />} />
+                <Route exact path="/pasien/:id/dasboardpasien" element={<PageDasboardPasien />} />
+                <Route exact path="/dokter/:id/dasboarddokter" element={<PageDasboardDokter />} />
+                <Route path='/dokter/:id/jadwalperiksadokter' element={<PageJadwalPeriksaDokter />} />
+                <Route path='/dokter/:id/data-pasien' element={<PageDaftarPeriksaDokter />}/>
+                <Route path='/pasien/:id/daftarperiksapasien' element={<PageDaftarPeriksaPasien />}/>
+                <Route path='/detailperiksadokter/:id' element={<PagedetailPeriksaDokter />}/>
+                <Route path='/detailperiksadokter/update/:id' element={<PagedetailPeriksaDokter />}/>
+                <Route path='/dokter/:id/riwayatpasien' element={<PageRiwayatPasien />}/>
+                <Route path='/dokter/:id/detailriwayatpasien' element={<PageRiwayatPasien />}/>
+                <Route path='/pasien/:id/detailriwayatpasien' element={<PageDaftarPeriksaPasien />}/>
+                <Route path='/dokter/:idDokter/riwayatpasien/detail/:id' element={<PageDetailRiwayatDokter />}/>
+                <Route path='/pasien/:idPasien/riwayat-periksa/detail/:idDaftarPoli' element={<PageDetailRiwayatPasien/>}/>
               </Routes>
         </Router>
         </>

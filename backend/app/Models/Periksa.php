@@ -29,4 +29,29 @@ class Periksa extends Model
     {
         return $this->hasMany(DetailPeriksa::class, 'id_periksa');
     }
+
+    // Relasi ke tabel Dokter
+    public function dokter()
+    {
+        return $this->belongsTo(Dokter::class, 'id_dokter');
+    }
+
+    public function poli()
+    {
+        return $this->belongsTo(Poli::class, 'id_poli');
+    }
+
+    // Relasi ke tabel Obat (banyak ke banyak)
+    public function obat()
+    {
+        return $this->belongsToMany(Obat::class, 'periksa_obat', 'id_periksa', 'id_obat')
+            ->withPivot('jumlah', 'harga');
+    }
+
+    public function pasien()
+    {
+        return $this->belongsTo(Pasien::class, 'id_pasien');
+    }
+
+
 }

@@ -36,7 +36,7 @@ const Login = () => {
                 } else if (formData.role === "dokter") {
                     localStorage.setItem("dokter", JSON.stringify(response.data.user));
                     console.log("Data dokter disimpan:", response.data.user);
-                    navigate(`/dasboarddokter/${response.data.user.id}`);
+                    navigate(`/dokter/${response.data.user.id}/dasboarddokter`);
                 }
             } else {
                 setMessage("Login gagal atau data tidak ditemukan.");
