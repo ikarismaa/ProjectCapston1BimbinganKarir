@@ -70,8 +70,13 @@ const JadwalPeriksaDokter = () => {
         setIsAdding(false); // Tutup form setelah berhasil
         setSuccess("Jadwal berhasil ditambahkan!");
         } catch (err) {
-        console.error("Kesalahan saat menambahkan jadwal:", err.response?.data || err.message);
-        setError(err.response?.data?.message || "Gagal menambahkan jadwal. Silakan coba lagi.");
+            if(err.response && err.response.data.error){
+                    alert(err.response.data.error);
+                }else{
+                    setError("Gagal menyimpan jadwal.Periksa input Anda. ");
+                }
+        //console.error("Kesalahan saat menambahkan jadwal:", err.response?.data || err.message);
+        //setError(err.response?.data?.message || "Gagal menambahkan jadwal. Silakan coba lagi.");
         }
     };
 
@@ -101,7 +106,7 @@ const JadwalPeriksaDokter = () => {
 
         console.log("Mengirim data edit:", updatedFields);
 
-        await axios.put(` /jadwal-periksa/${selectedJadwal.id}`, updatedFields);
+        await axios.put(`/jadwal-periksa/${selectedJadwal.id}`, updatedFields);
 
         await fetchJadwal(); // Fetch ulang data jadwal
         resetForm(); // Tutup form
@@ -157,14 +162,21 @@ const JadwalPeriksaDokter = () => {
                 </div>
                 <div>
                 <label className="block text-sm font-bold mb-2">Hari</label>
-                <input
+                <select
                     type="text"
                     name="hari"
                     value={form.hari}
                     onChange={handleInputChange}
                     className="w-full p-2 border rounded"
                     required
-                />
+                >
+                    <option value="Senin">Senin</option>
+                    <option value="Selasa">Selasa</option>
+                    <option value="Rabu">Rabu</option>
+                    <option value="Kamis">Kamis</option>
+                    <option value="Jumat">Jumat</option>
+                    <option value="Sabtu">Sabtu</option>
+                </select>
                 </div>
                 <div>
                 <label className="block text-sm font-bold mb-2">Jam Mulai</label>
@@ -198,7 +210,7 @@ const JadwalPeriksaDokter = () => {
                     required
                 >
                     <option value="aktif">aktif</option>
-                    <option value="non-aktif">tidak aktif</option>
+                    <option value="tidak aktif">tidak aktif</option>
                 </select>
                 </div>
             </div>
@@ -210,7 +222,11 @@ const JadwalPeriksaDokter = () => {
                 </button>
                 <button
                 type="button"
-                onClick={() => setIsAdding(false)}
+                onClick={() => {
+                resetForm();
+                setIsAdding(false);
+                setSelectedJadwal(null);
+                }}
                 className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
                 Batal
                 </button>

@@ -42,6 +42,14 @@ class JadwalPeriksaController extends Controller
     ]);
 
     try {
+        //cek apakah sudah ada jadwal dengan hari yang sama untuk dokter ini
+        $extetingJadwal = JadwalPeriksa::where('id_dokter', $validatedData['id_dokter'])
+        ->where('hari', $validatedData['hari'])
+        ->first();
+
+        if ($extetingJadwal){
+            return response()->json(['error' => 'jadwal pada hari yang sama sudah ada untuk dokter ini'], 400);
+        }
 
         if($validatedData['status'] === 'aktif'){
             JadwalPeriksa::where('id_dokter', $validatedData['id_dokter'])
@@ -50,7 +58,7 @@ class JadwalPeriksaController extends Controller
         }
 
 
-
+        //simpan jadwal baru
         $jadwal = JadwalPeriksa::create($validatedData);
         return response()->json($jadwal, 201); // 201 Created
     } catch (\Exception $e) {
